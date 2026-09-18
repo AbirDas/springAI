@@ -22,9 +22,10 @@
 		<developer/>
 	</developers>
 	<modules>
-		<module>OpenAI</module>
-		<module>Ollama</module>
-	</modules>
+		<module>ChatClient-section1/OpenAI</module>
+		<module>ChatClient-section1/Ollama</module>
+        <module>ChatClient-section1/Multimodel</module>
+    </modules>
 	<scm>
 		<connection/>
 		<developerConnection/>
