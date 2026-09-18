@@ -23,6 +23,7 @@
 	</developers>
 	<modules>
 		<module>OpenAI</module>
+		<module>Ollama</module>
 	</modules>
 	<scm>
 		<connection/>

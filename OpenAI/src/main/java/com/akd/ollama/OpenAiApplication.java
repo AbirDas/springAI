@@ -1,13 +1,13 @@
-package com.akd.springAI;
+package com.akd.ollama;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringAiApplication {
+public class OpenAiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringAiApplication.class, args);
+		SpringApplication.run(OpenAiApplication.class, args);
 	}
 
 }
