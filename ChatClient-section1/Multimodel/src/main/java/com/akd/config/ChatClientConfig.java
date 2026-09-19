@@ -1,4 +1,4 @@
-package com.akd.ollama.config;
+package com.akd.config;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.ollama.OllamaChatModel;

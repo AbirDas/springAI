@@ -25,7 +25,8 @@
 		<module>ChatClient-section1/OpenAI</module>
 		<module>ChatClient-section1/Ollama</module>
         <module>ChatClient-section1/Multimodel</module>
-    </modules>
+		<module>Prompt_Advisors_StructuredResponses-section2/springai</module>
+	</modules>
 	<scm>
 		<connection/>
 		<developerConnection/>
