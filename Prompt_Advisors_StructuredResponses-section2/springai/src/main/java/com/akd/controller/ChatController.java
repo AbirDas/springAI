@@ -22,6 +22,7 @@ public class ChatController {
                         responsibilities, respond politely and inform them that you are\s
                         only able to assist with IT support tasks within your defined scope.
                         """)
+                .defaultUser("How can you help me?")
                 .build();
     }
 
