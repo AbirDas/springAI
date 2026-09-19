@@ -1,4 +1,4 @@
-package com.akd.ollama.controller;
+package com.akd.controller;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.GetMapping;

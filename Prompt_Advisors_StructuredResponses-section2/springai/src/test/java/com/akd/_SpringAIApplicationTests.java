@@ -1,10 +1,10 @@
-package com.akd.ollama;
+package com.akd;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class OpenAiApplicationTests {
+class _SpringAIApplicationTests {
 
 	@Test
 	void contextLoads() {
