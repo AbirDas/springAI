@@ -3,6 +3,7 @@ package com.akd.config;
 import com.akd.advisor.TokenUsageAuditAdvisor;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
+import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,7 +14,11 @@ public class ChatClientConfig {
 
     @Bean
     public ChatClient chatClient(ChatClient.Builder chatClientBuilder) {
+        var options = OpenAiChatOptions.builder()
+                .model("gpt-5-nano")
+                .temperature(1.0);
         return chatClientBuilder
+                .defaultOptions(options)
                 /*.defaultAdvisors(new SimpleLoggerAdvisor())
                 .defaultAdvisors(new TokenUsageAuditAdvisor())*/
                 .defaultAdvisors(List.of(new SimpleLoggerAdvisor(), new TokenUsageAuditAdvisor()))
