@@ -27,7 +27,8 @@
         <module>ChatClient-section1/Multimodel</module>
 		<module>Prompt_Advisors_StructuredResponses-section2/springai</module>
         <module>Teach_LLM_to_remember_memory-section4/Memory</module>
-    </modules>
+		<module>RAG-section-5/SpringAiRAG</module>
+	</modules>
 	<scm>
 		<connection/>
 		<developerConnection/>
