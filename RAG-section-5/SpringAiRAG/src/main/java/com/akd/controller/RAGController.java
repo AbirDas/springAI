@@ -37,20 +37,19 @@ public class RAGController {
     @GetMapping("/radom/chat")
     public ResponseEntity<String> randomChat(@RequestHeader("username") String username,
                                              @RequestParam("message") String message) {
-        SearchRequest searchRequest = SearchRequest.builder()
+        /*SearchRequest searchRequest = SearchRequest.builder()
                 .query(message)
                 .topK(3)
                 .similarityThreshold(0.5).build();
         List<Document> similarDocs = vectorStore.similaritySearch(searchRequest);
         String similarContext = similarDocs.stream()
                 .map(Document::getText)
-                .collect(Collectors.joining(System.lineSeparator()));
-
+                .collect(Collectors.joining(System.lineSeparator()));*/
         String answer = chatClient.prompt()
-                .system(
+                /*.system(
                         promptSystemSpec -> promptSystemSpec.text(promptTemplate)
                                 .param("documents", similarContext)
-                )
+                )*/
                 .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, username))
                 .user(message)
                 .call().content();
@@ -60,7 +59,7 @@ public class RAGController {
     @GetMapping("/document/chat")
     public ResponseEntity<String> documentChat(@RequestHeader("username") String username,
                                                @RequestParam("message") String message) {
-        SearchRequest searchRequest = SearchRequest.builder()
+        /*SearchRequest searchRequest = SearchRequest.builder()
                 .query(message)
                 .topK(3)
                 .similarityThreshold(0.5)
@@ -68,12 +67,12 @@ public class RAGController {
         List<Document> similarDocs = vectorStore.similaritySearch(searchRequest);
         String similarContext = similarDocs.stream()
                 .map(Document::getText)
-                .collect(Collectors.joining(System.lineSeparator()));
+                .collect(Collectors.joining(System.lineSeparator()));*/
         String answer = chatClient.prompt()
-                .system(
+                /*.system(
                         promptSystemSpec -> promptSystemSpec.text(hrSystemTemplate)
                                 .param("documents", similarContext)
-                )
+                )*/
                 .advisors(a -> a.param(ChatMemory.CONVERSATION_ID,username))
                 .call().content();
         return ResponseEntity.ok().body(answer);
