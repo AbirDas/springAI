@@ -44,6 +44,10 @@
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-tika-document-reader</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-redis-semantic-cache</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
