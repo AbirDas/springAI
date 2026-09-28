@@ -3,9 +3,12 @@ package com.akd.tools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.tool.annotation.Tool;
+import org.springframework.ai.tool.annotation.ToolParam;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
+import java.time.ZoneId;
 
 @Component
 public class TimeTools {
@@ -16,5 +19,12 @@ public class TimeTools {
     public String getCurrentLocalTime() {
         logger.info("Returning the current time in the user's timezone");
         return LocalTime.now().toString();
+    }
+
+    @Tool(name = "getCurrentTime", description = "Get the current time in the specified time zone.")
+    public String getCurrentTime(@ToolParam(
+            description = "Value representing the time zone") String timeZone) {
+        logger.info("Returning the current time in the timeZone {}",timeZone);
+        return LocalTime.now(ZoneId.of(timeZone)).toString();
     }
 }
