@@ -28,6 +28,7 @@
 		<module>Prompt_Advisors_StructuredResponses-section2/springai</module>
         <module>Teach_LLM_to_remember_memory-section4/Memory</module>
 		<module>RAG-section5/SpringAiRAG</module>
+		<module>Tools_Calling-section6/ToolCalling</module>
     </modules>
 	<scm>
 		<connection/>
