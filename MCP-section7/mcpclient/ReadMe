@@ -1,0 +1,5 @@
+To run this MCP client springboot service, open Windows PowerShell and run below cmd
+
+npm install -g @modelcontextprotocol/server-filesystem
+
+use the  mcp-servers.json in location to make it run (C:\AKD\workplace\springAI\MCP-section7\mcpclient\src\main\resources\mcp-servers.json
