@@ -6,6 +6,20 @@
         "@modelcontextprotocol/server-filesystem",
         "C:/AKD/mcp"
       ]
+    },
+    "github": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "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"
+      }
     }
   }
 }
