@@ -10,6 +10,8 @@ import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 
 @RestController
@@ -38,6 +40,7 @@ public class MCPClientController {
         return chatClient.prompt()
                 .user(message + "My username is "+username)
                 .tools(toolCallbacks)
+                .toolContext(Map.of("progressToken", UUID.randomUUID().toString()))
                 .call().content();
     }
 }
