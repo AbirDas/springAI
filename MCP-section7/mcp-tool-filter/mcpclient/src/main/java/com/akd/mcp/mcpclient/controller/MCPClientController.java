@@ -1,10 +1,15 @@
 package com.akd.mcp.mcpclient.controller;
 
+import com.akd.mcp.mcpclient.util.ToolUtil;
+import io.modelcontextprotocol.client.McpSyncClient;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -12,20 +17,27 @@ import org.springframework.web.bind.annotation.*;
 public class MCPClientController {
 
     private final ChatClient chatClient;
+    private final List<McpSyncClient> mcpClient;
 
     public MCPClientController(ChatClient.Builder chatClientBuilder,
-                               ToolCallbackProvider toolCallbackProvider) {
+                               List<McpSyncClient> mcpClient
+                               /*ToolCallbackProvider toolCallbackProvider*/
+    ) {
         this.chatClient = chatClientBuilder
-                .defaultTools(toolCallbackProvider)
+                /*.defaultTools(toolCallbackProvider)*/
                 .defaultAdvisors(new SimpleLoggerAdvisor())
                 .build();
+        this.mcpClient = mcpClient;
     }
 
     @GetMapping("/chat")
     public String chat(@RequestHeader(value = "username", required = false) String username,
             @RequestParam("message") String message) {
+        // filter by MCP server name (connection name) and tool name
+        ToolCallback[] toolCallbacks = ToolUtil.selectToolsFor(mcpClient,"helpdesk-mcp-server",null);
         return chatClient.prompt()
                 .user(message + "My username is "+username)
+                .tools(toolCallbacks)
                 .call().content();
     }
 }
