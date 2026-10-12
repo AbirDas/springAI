@@ -7,6 +7,7 @@ import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.evaluation.FactCheckingEvaluator;
 import org.springframework.ai.chat.evaluation.RelevancyEvaluator;
 import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.document.Document;
 import org.springframework.ai.evaluation.EvaluationRequest;
 import org.springframework.ai.evaluation.EvaluationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.test.context.TestPropertySource;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -43,6 +45,9 @@ public class SpringAITestApplicationTests {
 
     @Value("classpath:/promptTemplates/factCheck.st")
     Resource factCheckTemplate;
+
+    @Value("classpath:/promptTemplates/hrPolicy.st")
+    Resource hrPolicyTemplate;
 
     @BeforeEach
     void setup() throws IOException {
@@ -114,6 +119,39 @@ public class SpringAITestApplicationTests {
                         """, question, aiResponse, "")
                         .isTrue());
 
+    }
+
+    @Test
+    @DisplayName("Should correctly evaluate factual response based on HR policy context (RAG scenario)")
+    @Timeout(value = 30)
+    public void evaluateHrPolicyAnswerWithRagContext() throws IOException {
+        // Given
+        String question = "How many paid leaves do employees get annually?";
+
+        // When
+        String aiResponse = chatController.promptStuffing(question);
+        String retrievedContext = hrPolicyTemplate.getContentAsString(Charset.defaultCharset());
+
+        EvaluationRequest evaluationRequest = new EvaluationRequest(
+                question, List.of(new Document(retrievedContext)),
+                aiResponse
+        );
+
+        EvaluationResponse evaluationResponse = factCheckingEvaluator.evaluate(evaluationRequest);
+
+        // Then
+        Assertions.assertAll(
+                () -> assertThat(aiResponse).isNotBlank(),
+                () -> assertThat(evaluationResponse.isPass())
+                        .withFailMessage("""
+                        ========================================
+                        The response was not considered factually accurate.
+                        Question: %s
+                        Response: %s
+                        Context: %s
+                        ========================================
+                        """, question, aiResponse, retrievedContext)
+                        .isTrue());
     }
 
 }
