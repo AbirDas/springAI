@@ -1,2 +1,2 @@
 # springAI
-SpringAI code base and practice 
+SpringAI interface with Springboot and dividen into section with example
